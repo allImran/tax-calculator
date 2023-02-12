@@ -48,6 +48,7 @@
         </div>
 
         <p class="text-sm">(iv) The breakdown of payment</p>
+        <PaymentTable/>
         <p class="text-sm">(x) Name, Designation & Signature, along with date of the person issuing the certificate.</p>
         <div class="flex justify-between text-sm mt-14">
             <div>

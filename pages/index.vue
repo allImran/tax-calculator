@@ -3,13 +3,14 @@
         <div class="space-y-5 -mt-32">
             <p class="text-red-600 text-3xl font-bold text-center">ট্যাক্স ক্যালকুলেটর</p>
             <div class="flex">
-                <input 
-                    type="text"
+                <input
+                    type="number"
+                    v-model="gross"
                     class="border border-red-600 h-10 w-72 px-3 text-center"
                 >
                 
                 <nuxt-link 
-                    to="/tax-card" 
+                    :to="`/tax-card?monthly_gross=${gross}`" 
                     class="w-10 text-3lx bg-red-600 text-white"
                 >
                     <div class="h-full w-full flex justify-center items-center">Go</div>
@@ -17,4 +18,8 @@
             </div>
         </div>
     </div>
-</template>"
+</template>
+
+<script setup>
+const gross = ref(null)
+</script>

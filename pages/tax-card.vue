@@ -20,7 +20,7 @@
                         <select name="" id="">
                             <option
                                 class="capitalize"
-                                v-for="gender in genderArr"
+                                v-for="gender in locationArr"
                                 :key="gender" 
                                 value="gender"
                             >
@@ -29,15 +29,15 @@
                         </select>
                     </div>
                 </div>
-                <p class="py-1 text-center bg-gray-200 mt-5">Income details</p>
-
+                <TitleComponent class="mt-5" title="Income Details"/>
                 <div class="flex gap-x-10 text-sm mt-5">
                     <div class="w-40">
                         <p class="text-center">Monthly Gross</p>
                         <input 
-                            type="text"
+                            type="number"
                             v-model="monthlyGross"
                             class="font-sm text-center"
+                            @input="debounceUpdate"
                         >
                     </div>
                     <div class="w-40">
@@ -53,7 +53,10 @@
                 <div class="mt-5">
                     <PaymentTable :salaryForm="salaryForm"/>
                 </div>
-                
+
+                <TitleComponent class="mt-5" title="Calculation of Income Tax Liability"/>
+                <TitleComponent class="mt-5" title="Calculation of Tax Credit on Investment"/>
+                <TitleComponent class="mt-5" title="Income Tax Payable"/>
             </PdfWrapper>
         </client-only>
     </div>
@@ -61,6 +64,7 @@
 
 <script setup>
 import axios from 'axios'
+import { debounce } from 'lodash'
 import { onMounted } from 'vue'
 const genderArr = ['male', 'female', 'other'];
 const locationArr = ['dhaka'];
@@ -74,6 +78,9 @@ const fetchSalaryForm = async () => {
     const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}`)
     salaryForm.value = data
 }
+
+const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
+
 onMounted(() => {
     fetchSalaryForm()
 })

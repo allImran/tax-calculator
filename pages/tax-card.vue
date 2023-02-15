@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="mt-5">
-                    <PaymentTable/>
+                    <PaymentTable :salaryForm="salaryForm"/>
                 </div>
                 
             </PdfWrapper>
@@ -60,9 +60,21 @@
 </template>
 
 <script setup>
-const route = useRoute()
-const monthlyGross = ref(route.query.monthly_gross)
-const yearlyGross = computed(() => monthlyGross.value * 12)
+import axios from 'axios'
+import { onMounted } from 'vue'
 const genderArr = ['male', 'female', 'other'];
 const locationArr = ['dhaka'];
+const salaryForm = ref([])
+const route = useRoute()
+const config = useRuntimeConfig()
+const monthlyGross = ref(route.query.monthly_gross)
+const yearlyGross = computed(() => monthlyGross.value * 12)
+
+const fetchSalaryForm = async () => {
+    const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}`)
+    salaryForm.value = data
+}
+onMounted(() => {
+    fetchSalaryForm()
+})
 </script>

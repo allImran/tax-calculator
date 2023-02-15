@@ -7,33 +7,35 @@
                         <tr>
                             <th
                                 class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                SL
+                                Heads of income
                             </th>
                             <th
                                 class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                Particulars
+                                Gross Income
                             </th>
                             <th
                                 class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                Amount
+                                Tax Exempted
+                            </th>
+                            <th
+                                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                Taxable Income
                             </th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <th
-                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                                /argon/
-                            </th>
-                            <td
-                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                                4,569
-                            </td>
-                            <td
-                                class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                340
-                            </td>
+                        <tr 
+                            v-for="{key, label, gross_income, exemption, taxable_salary} in salaryForm"
+                            :key="key"
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700"
+                        >
+                            <template v-if="showItem(key)">
+                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">{{ label }}</td>
+                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">{{ gross_income }}</td>
+                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">{{ exemption }}</td>
+                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">{{ taxable_salary }}</td>
+                            </template>
                         </tr>
                     </tbody>
                 </table>
@@ -41,3 +43,12 @@
         </div>
     </div>
 </template>
+
+<script setup>
+const props = defineProps({
+    salaryForm: Array
+})
+
+const validKeys = ['basic_pay', 'house_rent', 'medical_allowance', 'conveyance_allowance']
+const showItem = (key) => validKeys.includes(key)
+</script>

@@ -7,7 +7,7 @@ export default defineNuxtPlugin(() => {
   // client side only (due to the .client extension) so it works fine.
   return {
     provide: {
-      html2pdf: (element, options) => {
+      html2pdf: (element: Object, options: Object) => {
         return html2pdf(element, options)
       }
     }

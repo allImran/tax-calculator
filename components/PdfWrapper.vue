@@ -1,7 +1,12 @@
 <template>
-    <div id="html2pdf">
-        <slot></slot>
-        <button @click="downloadPDF">Download</button>
+    <div class="pb-10">
+        <div id="html2pdf">
+            <slot></slot>
+        </div>
+        <button 
+            class="px-5 py-1 bg-red-600 mt-10 text-white rounded-sm" 
+            @click="downloadPDF"
+        >Download</button>
     </div>
  </template>
 

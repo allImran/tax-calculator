@@ -7,7 +7,7 @@
                     href=""
                 >
                 <span class="absolute inset-x-0 -bottom-px h-px w-full bg-white"></span>
-                    Salary certificate
+                    Tax card
                 </a>
             </li>
 
@@ -16,7 +16,7 @@
                     class="block bg-red-50 p-4 text-sm font-medium text-gray-500 ring-1 ring-inset ring-white"
                     href=""
                 >
-                    Tax card
+                    Salary certificate
                 </a>
             </li>
         </ul>

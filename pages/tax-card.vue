@@ -64,7 +64,7 @@
 
 <script setup>
 import axios from 'axios'
-import { debounce } from 'lodash'
+//import { debounce } from 'lodash'
 import { onMounted } from 'vue'
 const genderArr = ['male', 'female', 'other'];
 const locationArr = ['dhaka'];
@@ -79,7 +79,8 @@ const fetchSalaryForm = async () => {
     salaryForm.value = data
 }
 
-const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
+// const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
+const debounceUpdate = () => {}
 
 onMounted(() => {
     fetchSalaryForm()

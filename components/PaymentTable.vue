@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full xl:w-8/12 mb-12 xl:mb-0">
+    <div class="w-full  mb-12 xl:mb-0">
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 border border-gray-500 rounded ">
             <div class="block w-full overflow-x-auto">
                 <table class="items-center bg-transparent w-full border-collapse ">

@@ -17,14 +17,14 @@
                     </div>
                     <div>
                         <p>Location</p>
-                        <select name="" id="">
+                        <select>
                             <option
                                 class="capitalize"
-                                v-for="gender in locationArr"
-                                :key="gender" 
-                                value="gender"
+                                v-for="{value, title} in locationArr"
+                                :key="value" 
+                                :value="value"
                             >
-                                {{ gender }}
+                                {{ title }}
                             </option>
                         </select>
                     </div>
@@ -64,11 +64,16 @@
 
 <script setup>
 import axios from 'axios'
-//import { debounce } from 'lodash'
+import { debounce } from 'lodash'
 import { onMounted } from 'vue'
 const genderArr = ['male', 'female', 'other'];
-const locationArr = ['dhaka'];
+const locationArr = [{
+    value: 'dhaka_city_corporation',
+    title: 'Dhaka'
+}];
 const salaryForm = ref([])
+const salaryReturn = ref([])
+const salaryIncome = ref([])
 const route = useRoute()
 const config = useRuntimeConfig()
 const monthlyGross = ref(route.query.monthly_gross)
@@ -77,11 +82,20 @@ const yearlyGross = computed(() => monthlyGross.value * 12)
 const fetchSalaryForm = async () => {
     const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}`)
     salaryForm.value = data
+    fetchReturn(data)
+}
+const fetchReturn = async (salaryForm) => {
+    const {data} = await axios.post(`${config.apiBase}/calculator/calculate`, {
+        gender: 'male',
+        tax_file_location:'dhaka_city_corporation',
+        salary_form: JSON.stringify(salaryForm),
+    })
+    if(!data) return
+    if(data.return) salaryReturn.value = data.return
+    if(data.salary_income) salaryIncome.value = data.salary_income
 }
 
-// const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
-const debounceUpdate = () => {}
-
+const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
 onMounted(() => {
     fetchSalaryForm()
 })

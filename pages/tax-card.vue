@@ -6,9 +6,10 @@
                 <div class="flex gap-x-20 mt-10 text-sm">
                     <div class="flex items-center">
                         <p class="font-semibold">Gender:</p>
-                        <select>
+                        <select v-model="gender">
+                            <option :value="null">Select</option>
                             <option
-                                v-for="{title, value} in gender"
+                                v-for="{title, value} in genderList"
                                 :key="value" 
                                 :value="value"
                             >{{ title }}
@@ -17,7 +18,8 @@
                     </div>
                     <div class="flex items-center">
                         <p class="font-semibold">Location:</p>
-                        <select>
+                        <select  v-model="taxFileLocation">
+                            <option :value="null">Select</option>
                             <option
                                 class="capitalize"
                                 v-for="{value, title} in locationArr"
@@ -43,7 +45,14 @@
                         </div>
                         <div class="w-40">
                             <p class="text-center">No of months</p>
-                            <p class="text-center">12</p>
+                            <input
+                                type="number"
+                                class="font-sm text-center bg-transparent w-full"
+                                v-model="month"
+                                max="12"
+                                min="1"
+                                @input="debounceUpdate"
+                            >
                         </div>
                         <div class="w-40">
                             <p class="text-center">Yearly Gross Salary</p>
@@ -69,29 +78,31 @@
 import axios from 'axios'
 import { debounce } from 'lodash'
 import { onMounted } from 'vue'
-import gender from '@/data/gender.js'
-const genderArr = ['male', 'female', 'other'];
+import genderList from '@/data/gender.js'
 const locationArr = [{
     value: 'dhaka_city_corporation',
     title: 'Dhaka'
 }];
+const route = useRoute()
 const salaryForm = ref([])
 const salaryReturn = ref([])
 const salaryIncome = ref([])
-const route = useRoute()
+const gender = ref(route.query.gender)
+const taxFileLocation = ref(route.query.location)
+const month = ref(route.query.month)
 const config = useRuntimeConfig()
 const monthlyGross = ref(route.query.monthly_gross)
-const yearlyGross = computed(() => monthlyGross.value * 12)
+const yearlyGross = computed(() => monthlyGross.value * month.value)
 
 const fetchSalaryForm = async () => {
-    const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}`)
+    const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}&&month=${month.value}`)
     salaryForm.value = data
     fetchReturn(data)
 }
 const fetchReturn = async (salaryForm) => {
     const {data} = await axios.post(`${config.apiBase}/calculator/calculate`, {
-        gender: 'male',
-        tax_file_location:'dhaka_city_corporation',
+        gender: gender.value,
+        tax_file_location:taxFileLocation.value,
         salary_form: JSON.stringify(salaryForm),
     })
     if(!data) return

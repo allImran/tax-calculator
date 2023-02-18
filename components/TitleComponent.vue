@@ -1,5 +1,5 @@
 <template>
-    <p class="py-1 text-center bg-gray-200">{{ title }}</p>
+    <p class="pt-2 rounded-tr rounded-tl text-gray-400 font-semibold text-center bg-gray-100">{{ title }}</p>
 </template>
 
 <script setup>

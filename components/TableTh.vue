@@ -1,6 +1,6 @@
 <template>
     <thead>
-        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+        <tr class="bg-gray-200 border border-gray-200 text-gray-600 capitalize text-sm leading-normal">
             <th
                 v-for="item in thArr"
                 :key="item"

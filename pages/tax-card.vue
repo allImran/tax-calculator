@@ -4,19 +4,19 @@
         <client-only>
             <PdfWrapper>
                 <div class="flex gap-x-20 mt-10 text-sm">
-                    <div>
-                        <p>Gender</p>
-                        <select name="" id="">
+                    <div class="flex items-center">
+                        <p class="font-semibold">Gender:</p>
+                        <select>
                             <option
-                                v-for="gender in genderArr"
-                                :key="gender" 
-                                value="gender"
-                            >{{ gender }}
+                                v-for="{title, value} in gender"
+                                :key="value" 
+                                :value="value"
+                            >{{ title }}
                             </option>
                         </select>
                     </div>
-                    <div>
-                        <p>Location</p>
+                    <div class="flex items-center">
+                        <p class="font-semibold">Location:</p>
                         <select>
                             <option
                                 class="capitalize"
@@ -30,31 +30,34 @@
                     </div>
                 </div>
                 <TitleComponent class="mt-5" title="Income Details"/>
-                <div class="flex gap-x-10 text-sm mt-5">
-                    <div class="w-40">
-                        <p class="text-center">Monthly Gross</p>
-                        <input 
-                            type="number"
-                            v-model="monthlyGross"
-                            class="font-sm text-center"
-                            @input="debounceUpdate"
-                        >
+                <div class="px-5 py-2 bg-gray-100 rounded-br rounded-bl">
+                    <div class="flex gap-x-10 text-sm px-5 bg-gray-100">
+                        <div class="w-40">
+                            <p class="text-center">Monthly Gross</p>
+                            <input 
+                                type="number"
+                                v-model="monthlyGross"
+                                class="font-sm text-center bg-transparent"
+                                @input="debounceUpdate"
+                            >
+                        </div>
+                        <div class="w-40">
+                            <p class="text-center">No of months</p>
+                            <p class="text-center">12</p>
+                        </div>
+                        <div class="w-40">
+                            <p class="text-center">Yearly Gross Salary</p>
+                            <p class="text-center font-semibold">{{ yearlyGross }}</p>
+                        </div>
                     </div>
-                    <div class="w-40">
-                        <p class="text-center">No of months</p>
-                        <p class="text-center">12</p>
-                    </div>
-                    <div class="w-40">
-                        <p class="text-center">Yearly Gross Salary</p>
-                        <p class="text-center font-semibold">{{ yearlyGross }}</p>
-                    </div>
-                </div>
-
-                <div class="mt-5">
-                    <PaymentTable :salaryForm="salaryForm"/>
+                    <PaymentTable :salaryForm="salaryIncome"/>
                 </div>
 
                 <TitleComponent class="mt-5" title="Calculation of Income Tax Liability"/>
+                <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
+                    <ReturnTable :salaryReturn="salaryReturn"/>
+                </div>
+
                 <TitleComponent class="mt-5" title="Calculation of Tax Credit on Investment"/>
                 <TitleComponent class="mt-5" title="Income Tax Payable"/>
             </PdfWrapper>
@@ -66,6 +69,7 @@
 import axios from 'axios'
 import { debounce } from 'lodash'
 import { onMounted } from 'vue'
+import gender from '@/data/gender.js'
 const genderArr = ['male', 'female', 'other'];
 const locationArr = [{
     value: 'dhaka_city_corporation',

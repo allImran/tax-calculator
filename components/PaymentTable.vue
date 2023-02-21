@@ -9,7 +9,7 @@
                     :index="i"
                 >
                     <template v-if="showItem(item.key)">
-                        <TableTd :text="item.label"/>
+                        <TableTd :isNumber="false" :text="item.label"/>
                         <TableTd :text="item.gross_income"/>
                         <TableTd :text="item.exemption"/>
                         <TableTd :text="item.taxable_salary"/>
@@ -25,6 +25,6 @@ const props = defineProps({
     salaryForm: Array
 })
 const thArr = [' Heads of income', 'Gross Income', 'Tax Exempted', 'Taxable Income']
-const validKeys = ['basic_pay', 'house_rent', 'medical_allowance', 'conveyance_allowance']
+const validKeys = ['basic_pay', 'house_rent', 'medical_allowance', 'conveyance_allowance', 'festival_bonus', 'other_allowance']
 const showItem = (key) => validKeys.includes(key)
 </script>

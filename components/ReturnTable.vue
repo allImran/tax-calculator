@@ -8,7 +8,7 @@
                     :key="i"
                     :index="i"
                 >
-                    <TableTd :text="item.label"/>
+                    <TableTd :isNumber="false" :text="item.label"/>
                     <TableTd :text="item.gross_income"/>
                     <TableTd :text="item.exemption"/>
                     <TableTd :text="item.taxable_salary"/>

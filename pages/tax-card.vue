@@ -59,7 +59,7 @@
                             <p class="text-center font-semibold">{{ yearlyGross }}</p>
                         </div>
                     </div>
-                    <PaymentTable :salaryForm="salaryIncome"/>
+                    <PaymentTable :salaryReturn="salaryReturn" :salaryForm="salaryIncome"/>
                 </div>
 
                 <TitleComponent class="mt-5" title="Calculation of Income Tax Liability"/>

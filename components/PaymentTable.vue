@@ -23,7 +23,7 @@
                         <TableTd :text="item.taxable_salary"/>
                     </template>
                 </TableTr>
-                <TableTr customBg="bg-gray-100 font-bold">
+                <TableTr v-if="totalIncome" customBg="bg-gray-100 font-bold">
                     <TableTd :isNumber="false" :text="totalIncome.label"/>
                     <TableTd :text="totalIncome.gross_income"/>
                     <TableTd :text="totalIncome.exemption"/>

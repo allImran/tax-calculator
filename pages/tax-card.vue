@@ -59,7 +59,7 @@
                             <p class="text-center font-semibold">{{ yearlyGross }}</p>
                         </div>
                     </div>
-                    <PaymentTable :salaryReturn="salaryReturn" :salaryForm="salaryIncome"/>
+                    <PaymentTable @onInput="handleCalculateUpdate" :salaryReturn="salaryReturn" :salaryForm="salaryIncome"/>
                 </div>
 
                 <TitleComponent class="mt-5" title="Calculation of Income Tax Liability"/>
@@ -111,7 +111,15 @@ const fetchReturn = async (salaryForm) => {
 }
 
 const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
+const debounceFetchReturn = debounce(() => fetchReturn(salaryForm.value), 1000)
 onMounted(() => {
     fetchSalaryForm()
 })
+
+const updateItem = (index, key, value) => salaryForm.value[index][key] = value
+
+function handleCalculateUpdate(index, key, value) {
+    updateItem(index, key, value)
+    debounceFetchReturn(salaryForm.value)
+}
 </script>

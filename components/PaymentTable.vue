@@ -16,7 +16,7 @@
                                 type="number"
                                 class="bg-transparent py-3 px-6 text-right"
                                 v-model="item.gross_income"
-                                @input="$emit('onInput')"
+                                @input="handleUpdate($event, item.key)"
                             >
                         </td>
                         <TableTd :text="item.exemption"/>
@@ -39,11 +39,11 @@
                     </td>
                     <template v-if="head.value">
                         <td class="text-right">
-                            <input 
+                            <input
                                 type="number"
                                 class="bg-transparent py-3 px-6 text-right"
                                 v-model="getItem(head.value).gross_income"
-                                @input="$emit('onInput')"
+                                @input="handleUpdate($event, head.value)"
                             >
                         </td>
                         <TableTd :text="getItem(head.value).exemption"/>
@@ -71,6 +71,7 @@ const props = defineProps({
     salaryForm: Array,
     salaryReturn: Array
 })
+const emit = defineEmits(['onInput'])
 
 const totalIncome = computed(() => first(props.salaryReturn))
 const heads = ref([
@@ -92,4 +93,9 @@ const validKeys = ['basic_pay', 'house_rent', 'medical_allowance', 'conveyance_a
 const showItem = (key) => validKeys.includes(key)
 
 const getItem = (_key) => props.salaryForm.find(({key}) => key === _key)
+const handleUpdate = (event, _key) => {
+    if(!event.target.value) return
+    let itemIndex = props.salaryForm.findIndex(({key}) => key === _key)
+    emit('onInput', itemIndex, 'gross_income', event.target.value)
+}
 </script>

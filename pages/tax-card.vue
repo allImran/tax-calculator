@@ -68,7 +68,18 @@
                 </div>
 
                 <TitleComponent class="mt-5" title="Calculation of Tax Credit on Investment"/>
+                <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
+                    <InvestmentTable 
+                        :investment="investment"
+                        :salaryReturn="salaryReturn"
+                        :actualInvestment="actualInvestment"
+                    />
+                </div>
+
                 <TitleComponent class="mt-5" title="Income Tax Payable"/>
+                <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
+                    <PayableTable :salaryReturn="salaryReturn"/>
+                </div>
             </PdfWrapper>
         </client-only>
     </div>
@@ -86,6 +97,9 @@ const locationArr = [{
 const route = useRoute()
 const salaryForm = ref([])
 const salaryReturn = ref([])
+const investment = ref([])
+const actualInvestment = ref(route.query.actual_investment)
+const minimumTax = ref(0)
 const salaryIncome = ref([])
 const gender = ref(route.query.gender)
 const taxFileLocation = ref(route.query.location)
@@ -106,6 +120,9 @@ const fetchReturn = async (salaryForm) => {
         salary_form: JSON.stringify(salaryForm),
     })
     if(!data) return
+    if(data.return) salaryReturn.value = data.return
+    if(data.minimum_tax) minimumTax.value = data.minimum_tax
+    if(data.investment) investment.value = data.investment
     if(data.return) salaryReturn.value = data.return
     if(data.salary_income) salaryIncome.value = data.salary_income
 }

@@ -10,7 +10,7 @@
                 >
                 
                 <nuxt-link 
-                    :to="`/tax-card?monthly_gross=${gross}&&month=12&&location=dhaka_city_corporation&&gender=male`" 
+                    :to="`/tax-card?monthly_gross=${gross}&month=12&location=dhaka_city_corporation&&gender=male&actual_investment=0`" 
                     class="w-10 text-3lx bg-red-600 text-white"
                 >
                     <div class="h-full w-full flex justify-center items-center">Go</div>

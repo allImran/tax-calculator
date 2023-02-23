@@ -79,7 +79,10 @@
 
                 <TitleComponent class="mt-5" title="Income Tax Payable"/>
                 <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
-                    <PayableTable :salaryReturn="salaryReturn"/>
+                    <PayableTable 
+                        :minimumTax="minimumTax"
+                        :taxLiability="taxLiability"
+                    />
                 </div>
             </PdfWrapper>
         </client-only>
@@ -88,7 +91,7 @@
 
 <script setup>
 import axios from 'axios'
-import { debounce } from 'lodash'
+import { debounce, last } from 'lodash'
 import { onMounted } from 'vue'
 import genderList from '@/data/gender.js'
 const locationArr = [{
@@ -131,9 +134,6 @@ const fetchReturn = async (salaryForm) => {
 
 const debounceUpdate = debounce(() => fetchSalaryForm(), 1000)
 const debounceFetchReturn = debounce(() => fetchReturn(salaryForm.value), 1000)
-onMounted(() => {
-    fetchSalaryForm()
-})
 
 const updateItem = (index, key, value) => salaryForm.value[index][key] = value
 
@@ -146,4 +146,18 @@ const investmentUpdate = value => {
     actualInvestment.value = value
     debounceFetchReturn(salaryForm.value)
 }
+
+const taxLiability = computed(() => {
+    const grossTaxPayable = last(salaryReturn.value)
+    const creditOnInvestment = last(investment.value)
+
+    if(!grossTaxPayable && !creditOnInvestment) return 0
+    if(!creditOnInvestment) return grossTaxPayable.taxable_salary
+
+    return grossTaxPayable.taxable_salary - creditOnInvestment.taxable_salary
+})
+
+onMounted(() => {
+    fetchSalaryForm()
+})
 </script>

@@ -14,7 +14,7 @@
                         <td class="text-right">
                             <input 
                                 type="number"
-                                class="bg-transparent py-3 px-6 text-right"
+                                class="bg-transparent py-3 px-6 text-right border-b border-red-600"
                                 v-model="item.gross_income"
                                 @input="handleUpdate($event, item.key)"
                             >
@@ -41,7 +41,7 @@
                         <td class="text-right">
                             <input
                                 type="number"
-                                class="bg-transparent py-3 px-6 text-right"
+                                class="bg-transparent py-3 px-6 text-right border-b border-red-600"
                                 v-model="getItem(head.value).gross_income"
                                 @input="handleUpdate($event, head.value)"
                             >

@@ -73,6 +73,7 @@
                         :investment="investment"
                         :salaryReturn="salaryReturn"
                         :actualInvestment="actualInvestment"
+                        :investmentUpdate="investmentUpdate"
                     />
                 </div>
 
@@ -109,7 +110,7 @@ const monthlyGross = ref(route.query.monthly_gross)
 const yearlyGross = computed(() => monthlyGross.value * month.value)
 
 const fetchSalaryForm = async () => {
-    const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}&&month=${month.value}`)
+    const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}&month=${month.value}`)
     salaryForm.value = data
     fetchReturn(data)
 }
@@ -118,6 +119,7 @@ const fetchReturn = async (salaryForm) => {
         gender: gender.value,
         tax_file_location:taxFileLocation.value,
         salary_form: JSON.stringify(salaryForm),
+        actual_investment: actualInvestment.value
     })
     if(!data) return
     if(data.return) salaryReturn.value = data.return
@@ -137,6 +139,11 @@ const updateItem = (index, key, value) => salaryForm.value[index][key] = value
 
 function handleCalculateUpdate(index, key, value) {
     updateItem(index, key, value)
+    debounceFetchReturn(salaryForm.value)
+}
+
+const investmentUpdate = value => {
+    actualInvestment.value = value
     debounceFetchReturn(salaryForm.value)
 }
 </script>

@@ -15,8 +15,14 @@
                 <nuxt-link to="/">
                     <img src="/logo/logo.png" alt="taxhouse-logo" class="h-[40px] p-2.5">
                 </nuxt-link>
-                <MenuIcon />
+                <MenuIcon @click="toggleSidebar" class="cursorPointer"/>
             </div>
        </div>
     </div>
 </template>
+
+<script setup>
+defineProps({
+    toggleSidebar: Function
+})
+</script>

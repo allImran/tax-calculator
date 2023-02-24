@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .m-w-900 {
-    min-width: 900px;
+    min-width: 1024px;
 }
 
 .slide-fade-enter-active {

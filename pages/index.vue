@@ -5,7 +5,7 @@
             <div class="flex">
                 <input
                     type="number"
-                    placeholder="Monthly gross"
+                    placeholder="Monthly gross salary"
                     v-model="gross"
                     class="border border-red-600 h-10 w-72 px-3 text-center"
                 >

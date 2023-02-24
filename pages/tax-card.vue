@@ -2,7 +2,7 @@
     <div>
         <Tab></Tab>
         <client-only>
-            <div style="min-width: 1024px;" class="overflow-x-auto">
+            <div>
             <PdfWrapper>
                 <div class="flex gap-x-20 mt-10 text-sm">
                     <div class="flex items-center">
@@ -32,9 +32,9 @@
                         </select>
                     </div>
                 </div>
-                <TitleComponent class="mt-5" title="Income Details"/>
-                <div class="px-5 py-2 bg-gray-100 rounded-br rounded-bl">
-                    <div class="flex gap-x-10 text-sm px-5 bg-gray-100">
+                <TitleComponent class="mt-5 m-w-900" title="Income Details"/>
+                <div class="m-w-900 px-5 py-2 bg-gray-100 rounded-br rounded-bl overflow-x-auto">
+                    <div class="flex gap-x-10 text-sm px-5 bg-gray-100 w-full">
                         <div class="w-40">
                             <p class="text-center">Monthly Gross</p>
                             <input 
@@ -63,13 +63,13 @@
                     <PaymentTable @onInput="handleCalculateUpdate" :salaryReturn="salaryReturn" :salaryForm="salaryIncome"/>
                 </div>
 
-                <TitleComponent class="mt-5" title="Calculation of Income Tax Liability"/>
-                <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
+                <TitleComponent class="mt-5 m-w-900" title="Calculation of Income Tax Liability"/>
+                <div  class="m-w-900 overflow-x-auto bg-gray-100 px-5 py-2 rounded-br rounded-bl">
                     <ReturnTable :salaryReturn="salaryReturn"/>
                 </div>
 
-                <TitleComponent class="mt-5" title="Calculation of Tax Credit on Investment"/>
-                <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
+                <TitleComponent class="mt-5 m-w-900" title="Calculation of Tax Credit on Investment"/>
+                <div  class="m-w-900 overflow-x-auto bg-gray-100 px-5 py-2 rounded-br rounded-bl ">
                     <InvestmentTable 
                         :investment="investment"
                         :salaryReturn="salaryReturn"
@@ -78,8 +78,8 @@
                     />
                 </div>
 
-                <TitleComponent class="mt-5" title="Income Tax Payable"/>
-                <div  class="bg-gray-100 px-5 py-2 rounded-br rounded-bl">
+                <TitleComponent class="mt-5 m-w-900" title="Income Tax Payable"/>
+                <div  class="m-w-900 overflow-x-auto bg-gray-100 px-5 py-2 rounded-br rounded-bl">
                     <PayableTable 
                         :minimumTax="minimumTax"
                         :taxLiability="taxLiability"

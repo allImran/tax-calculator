@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.m-w-900 {
+    min-width: 900px;
+}

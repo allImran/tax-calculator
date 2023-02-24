@@ -2,6 +2,7 @@
     <div>
         <Tab></Tab>
         <client-only>
+            <div style="min-width: 1024px;" class="overflow-x-auto">
             <PdfWrapper>
                 <div class="flex gap-x-20 mt-10 text-sm">
                     <div class="flex items-center">
@@ -85,6 +86,7 @@
                     />
                 </div>
             </PdfWrapper>
+        </div>
         </client-only>
     </div>
 </template>

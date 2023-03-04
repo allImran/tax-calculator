@@ -37,12 +37,16 @@
                     </td>
                     <template v-if="head.value">
                         <td class="text-right">
-                            <input
+                            <FormattedInput 
+                                v-model="getItem(head.value).gross_income"
+                                @onUpdate="val => handleUpdate(val, head.value)"
+                            />
+                            <!-- <input
                                 type="number"
                                 class="bg-transparent py-3 px-6 text-right border-b border-red-600"
                                 v-model="getItem(head.value).gross_income"
                                 @input="handleUpdate($event, head.value)"
-                            >
+                            > -->
                         </td>
                         <TableTd :text="getItem(head.value).exemption"/>
                         <TableTd :text="getItem(head.value).taxable_salary"/>

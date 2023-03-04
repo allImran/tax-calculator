@@ -9,11 +9,14 @@
                 <TableTr customBg="bg-gray-50">
                     <TableTd :isNumber="false" text="Advance Income Tax Deducted"/>
                     <td class="text-right">
-                        <input
+                        <!-- <input
                             type="number "
                             class="bg-transparent py-3 px-6 text-right border-b border-red-600"
                             v-model="taxDeduction"
-                        >
+                        > -->
+                        <FormattedInput 
+                            v-model="taxDeduction"
+                        />
                     </td>
                 </TableTr>
                 <TableTr>

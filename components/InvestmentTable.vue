@@ -9,6 +9,10 @@
                 <TableTr v-if="!investment.length" customBg="bg-gray-50">
                     <TableTd :isNumber="false" text="Actual investment"/>
                     <td class="text-right">
+                        <!-- <FormattedInput 
+                            v-model="item.gross_income"
+                            @onUpdate="investmentUpdate(val)"
+                        /> -->
                         <input
                             type="number"
                             class="bg-transparent py-3 px-6 text-right border-b border-red-600"

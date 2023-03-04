@@ -14,6 +14,6 @@ export const commaFormat = (value) => {
             .format(value).replace('BDT', '').replace('.00', '')
             .trim()
     } else {
-        return 0.00
+        return 0
     }
 }

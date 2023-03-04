@@ -12,12 +12,10 @@
                         <TableTd :isNumber="false" :text="item.label"/>
                         <!-- <TableTd :text="item.gross_income"/> -->
                         <td class="text-right">
-                            <input 
-                                type="number"
-                                class="bg-transparent py-3 px-6 text-right border-b border-red-600"
+                            <FormattedInput 
                                 v-model="item.gross_income"
-                                @input="handleUpdate($event, item.key)"
-                            >
+                                @onUpdate="val => handleUpdate(val, item.key)"
+                            />
                         </td>
                         <TableTd :text="item.exemption"/>
                         <TableTd :text="item.taxable_salary"/>
@@ -93,9 +91,9 @@ const validKeys = ['basic_pay', 'house_rent', 'medical_allowance', 'conveyance_a
 const showItem = (key) => validKeys.includes(key)
 
 const getItem = (_key) => props.salaryForm.find(({key}) => key === _key)
-const handleUpdate = (event, _key) => {
-    if(!event.target.value) return
+const handleUpdate = (val, _key) => {
+    if(!val) return
     let itemIndex = props.salaryForm.findIndex(({key}) => key === _key)
-    emit('onInput', itemIndex, 'gross_income', event.target.value)
+    emit('onInput', itemIndex, 'gross_income', val)
 }
 </script>

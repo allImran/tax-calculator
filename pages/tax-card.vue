@@ -7,7 +7,7 @@
                 <div class="flex gap-x-20 mt-10 text-sm">
                     <div class="flex items-center">
                         <p class="font-semibold">Gender:</p>
-                        <select v-model="gender">
+                        <select @change="debounceUpdate" v-model="gender">
                             <option :value="null">Select</option>
                             <option
                                 v-for="{title, value} in genderList"

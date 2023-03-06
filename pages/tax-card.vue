@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="relative">
         <Tab></Tab>
         <client-only>
             <div>
@@ -88,6 +88,7 @@
             </PdfWrapper>
         </div>
         </client-only>
+        <img v-if="isLoading" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="/loader.gif" alt="">
     </div>
 </template>
 
@@ -100,6 +101,7 @@ const locationArr = [{
     value: 'dhaka_city_corporation',
     title: 'Dhaka'
 }];
+const isLoading = ref(false)
 const route = useRoute()
 const salaryForm = ref([])
 const salaryReturn = ref([])
@@ -115,17 +117,21 @@ const monthlyGross = ref(route.query.monthly_gross)
 const yearlyGross = computed(() => monthlyGross.value * month.value)
 
 const fetchSalaryForm = async () => {
+    isLoading.value = true
     const {data} = await axios.get(`${config.apiBase}/calculator/salary-form?monthly_gross=${monthlyGross.value}&month=${month.value}`)
     salaryForm.value = data
+    isLoading.value = false
     fetchReturn(data)
 }
 const fetchReturn = async (salaryForm) => {
+    isLoading.value = true
     const {data} = await axios.post(`${config.apiBase}/calculator/calculate`, {
         gender: gender.value,
         tax_file_location:taxFileLocation.value,
         salary_form: JSON.stringify(salaryForm),
         actual_investment: actualInvestment.value
     })
+    isLoading.value = false
     if(!data) return
     if(data.return) salaryReturn.value = data.return
     if(data.minimum_tax) minimumTax.value = data.minimum_tax

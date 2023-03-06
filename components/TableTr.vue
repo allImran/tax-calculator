@@ -1,6 +1,6 @@
 <template>
     <tr
-        :class="getBg(index)"
+        :class="getBg()"
         class="border-b border-gray-200  hover:bg-gray-100"
     >
         <slot></slot>
@@ -18,8 +18,5 @@ const isEven = (index) => {
     return index % 2 == 0
 }
 
-const getBg = (index) => { 
-    if(props.customBg) return props.customBg
-    return isEven(index) ? 'bg-gray-50' : ''
-}
+const getBg = (index) => props.customBg ?  props.customBg : ''
 </script>

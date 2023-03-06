@@ -37,12 +37,13 @@
                     <div class="flex gap-x-10 text-sm px-5 bg-gray-100 w-full">
                         <div class="w-40">
                             <p class="text-center">Monthly Gross</p>
-                            <input 
-                                type="number"
+                            
+                            <FormattedInput
+                                style="text-align: center;"
+                                class="border-none text-center w-full"
                                 v-model="monthlyGross"
-                                class="font-sm text-center bg-transparent"
-                                @input="debounceUpdate"
-                            >
+                                @onUpdate="debounceUpdate"
+                            />
                         </div>
                         <div class="w-40">
                             <p class="text-center">No of months</p>
@@ -57,7 +58,7 @@
                         </div>
                         <div class="w-40">
                             <p class="text-center">Yearly Gross Salary</p>
-                            <p class="text-center font-semibold">{{ yearlyGross }}</p>
+                            <p class="text-center font-semibold">{{ commaFormat(yearlyGross) }}</p>
                         </div>
                     </div>
                     <PaymentTable @onInput="handleCalculateUpdate" :salaryReturn="salaryReturn" :salaryForm="salaryIncome"/>
@@ -94,6 +95,7 @@
 
 <script setup>
 import axios from 'axios'
+import { commaFormat } from '~/helper/utils'
 import { debounce, last } from 'lodash'
 import { onMounted } from 'vue'
 import genderList from '@/data/gender.js'
@@ -164,6 +166,10 @@ const taxLiability = computed(() => {
 
     return grossTaxPayable.taxable_salary - creditOnInvestment.taxable_salary
 })
+
+const handleMonthlyGrossChange = (e) => {
+    console.log(e.target.value)
+}
 
 onMounted(() => {
     fetchSalaryForm()
